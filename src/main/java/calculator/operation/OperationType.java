@@ -11,42 +11,25 @@ import java.util.function.DoubleBinaryOperator;
  * 반드시 이 클래스를 사용할 필요는 없다. 자유롭게 설계할 것.
  */
 public enum OperationType {
-    ADD('+') {
-        @Override
-        public double operate(double operand1, double operand2) {
-            return operand1 + operand2;
+    ADD('+', Double::sum),
+    SUBTRACT('-', (a, b) -> a - b),
+    MULTIPLY('*', (a, b) -> a * b),
+    DIVIDE('/', (a, b) -> {
+        if (b == 0) {
+            throw new IllegalArgumentException("0으로 나눌 수 없습니다");
         }
-    },
-    SUBTRACT('-') {
-        @Override
-        public double operate(double operand1, double operand2) {
-            return operand1 - operand2;
-        }
-    },
-    MULTIPLY('*') {
-        @Override
-        public double operate(double operand1, double operand2) {
-            return operand1 * operand2;
-        }
-    },
-    DIVIDE('/') {
-        @Override
-        public double operate(double operand1, double operand2) {
-            if (operand2 == 0) {
-                throw new IllegalArgumentException("0으로 나눌 수 없습니다");
-            }
-            double result = operand1 / operand2;
-            return BigDecimal.valueOf(result)
-                    .setScale(1, RoundingMode.HALF_UP)
-                    .doubleValue();
-        }
-    };
+        double result = a / b;
+        return BigDecimal.valueOf(result)
+                .setScale(1, RoundingMode.HALF_UP)
+                .doubleValue();
+    });
 
     private final char symbol;
-    private DoubleBinaryOperator operation;
+    private final DoubleBinaryOperator operation;
 
-    OperationType(char symbol) {
+    OperationType(char symbol, DoubleBinaryOperator operation) {
         this.symbol = symbol;
+        this.operation = operation;
     }
 
     public static OperationType from(char symbol) {
@@ -55,5 +38,8 @@ public enum OperationType {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("지원하지 않는 연산자입니다:"));
     }
-    public abstract double operate(double operand1, double operand2);
+
+    public double operate(double operand1, double operand2) {
+        return operation.applyAsDouble(operand1, operand2);
+    }
 }
