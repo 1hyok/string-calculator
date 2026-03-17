@@ -30,9 +30,8 @@ public class InputParser {
         System.out.println("인풋을 둘로 나눔:" + inputTokenList);
         this.setOperandList(inputTokenList);
         String inputTokenFirst = inputTokenList.getFirst();
-        char extractedOperator = new OperatorExtractor(inputTokenFirst).extract();
-        OperationType operationType = OperationType.from(extractedOperator);
-        this.operator = new Operator(operationType);
+        OperatorExtractor operatorExtractor = new OperatorExtractor(inputTokenFirst);
+        this.operator = operatorExtractor.extract();
     }
 
     private void setOperandList(List<String> inputTokenList) {

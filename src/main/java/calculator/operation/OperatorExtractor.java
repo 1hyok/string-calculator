@@ -7,8 +7,7 @@ public class OperatorExtractor {
         this.operatorPart = new OperatorPart(operatorPart);
     }
 
-    public char extract() {
-        if (!this.operatorPart.hasOperatorPrefix()) return '+';
-        return this.operatorPart.getOperator();
+    public Operator extract() {
+        return operatorPart.toOperator();
     }
 }

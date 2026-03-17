@@ -7,11 +7,15 @@ public class OperatorPart {
         this.value = value;
     }
 
-    boolean hasOperatorPrefix() {
+    private boolean hasOperatorPrefix() {
         return this.value.contains("op=");
     }
 
-    char getOperator() {
-        return this.value.charAt(3);
+    Operator toOperator() {
+        if (!this.hasOperatorPrefix()) {
+            OperationType operationType = OperationType.from('+');
+            return new Operator(operationType);
+        }
+        return new Operator(OperationType.from(this.value.charAt(3)));
     }
 }
