@@ -1,9 +1,10 @@
 package calculator.input;
 
+import calculator.input.operator.OperandParser;
+import calculator.input.operator.OperatorExtractor;
 import calculator.operation.Operands;
 import calculator.operation.OperationType;
 import calculator.operation.Operator;
-import calculator.operation.OperatorExtractor;
 
 import java.util.ArrayList;
 import java.util.List;

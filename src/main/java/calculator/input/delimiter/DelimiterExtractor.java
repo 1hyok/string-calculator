@@ -1,4 +1,4 @@
-package calculator.delimiter;
+package calculator.input.delimiter;
 
 public class DelimiterExtractor {
     private final DelimiterPart delimiterPart;

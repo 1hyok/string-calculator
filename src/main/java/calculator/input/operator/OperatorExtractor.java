@@ -1,4 +1,6 @@
-package calculator.operation;
+package calculator.input.operator;
+
+import calculator.operation.Operator;
 
 public class OperatorExtractor {
     private final OperatorPart operatorPart;

@@ -1,6 +1,6 @@
-package calculator.input;
+package calculator.input.operator;
 
-import calculator.delimiter.DelimiterExtractor;
+import calculator.input.delimiter.DelimiterExtractor;
 import calculator.operation.Operands;
 
 import java.util.Arrays;
@@ -10,7 +10,7 @@ public class OperandParser {
     private final String inputTokenFirst;
     private final String inputTokenLast;
 
-    OperandParser(String inputTokenFirst, String inputTokenLast) {
+    public OperandParser(String inputTokenFirst, String inputTokenLast) {
         this.inputTokenFirst = inputTokenFirst;
         this.inputTokenLast = inputTokenLast;
     }

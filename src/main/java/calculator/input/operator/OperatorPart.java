@@ -1,4 +1,7 @@
-package calculator.operation;
+package calculator.input.operator;
+
+import calculator.operation.OperationType;
+import calculator.operation.Operator;
 
 public class OperatorPart {
     private final String value;

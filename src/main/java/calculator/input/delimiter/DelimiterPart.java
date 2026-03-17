@@ -1,4 +1,4 @@
-package calculator.delimiter;
+package calculator.input.delimiter;
 
 public class DelimiterPart {
     private final String value;
