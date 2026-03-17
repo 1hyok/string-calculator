@@ -1,9 +1,8 @@
-package calculator;
+package calculator.inputparser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 힌트: 입력 문자열 파싱을 담당하는 클래스.
@@ -12,14 +11,14 @@ import java.util.stream.Collectors;
  */
 public class InputParser {
     private Operands operands;
-    private char operator = '+';
-
+    private Operator operator;
 
     InputParser(String input) {
         List<String> inputTokenList = getInputTokenList(input);
         this.setOperandList(inputTokenList);
         String inputTokenFirst = inputTokenList.getFirst();
-        this.operator = new OperatorExtractor(inputTokenFirst).extract();
+        char extractedOperator = new OperatorExtractor(inputTokenFirst).extract();
+        this.operator = new Operator(extractedOperator);
     }
 
     private void setOperandList(List<String> inputTokenList) {
@@ -31,7 +30,7 @@ public class InputParser {
         List<Integer> list = Arrays.stream(operandPartTokens)
                 .map(Integer::parseInt)
                 .toList();
-        operands = new Operands(list);
+        this.operands = new Operands(list);
     }
 
     private ArrayList<String> getInputTokenList(String input) {
