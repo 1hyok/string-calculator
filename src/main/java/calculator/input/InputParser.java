@@ -1,4 +1,4 @@
-package calculator;
+package calculator.input;
 
 import calculator.delimiter.DelimiterExtractor;
 import calculator.operation.Operands;
@@ -19,7 +19,7 @@ public class InputParser {
     private Operands operands;
     private final Operator operator;
 
-    InputParser(String input) {
+    public InputParser(String input) {
         if (input == null || input.isEmpty()) {
             operands = new Operands(new ArrayList<>(List.of(0.0)));
             operator = new Operator(OperationType.from('+'));
@@ -37,9 +37,9 @@ public class InputParser {
     private void setOperandList(List<String> inputTokenList) {
         String inputTokenFirst = inputTokenList.getFirst();
         String inputTokenLast = inputTokenList.getLast();
-        char delimiter = new DelimiterExtractor(inputTokenFirst).extract();
-        System.out.println("디리미터:" + delimiter);
-        String delimiterRegex = "[:," + delimiter + "]";
+//        char delimiter = new DelimiterExtractor(inputTokenFirst).extract();
+        String delimiterRegex = new DelimiterExtractor(inputTokenFirst).extract();
+//        String delimiterRegex = "[:," + delimiter + "]";
         String[] operandPartTokens = inputTokenLast.split(delimiterRegex);
         System.out.println("숫자 분리:" + Arrays.toString(operandPartTokens));
 
@@ -58,7 +58,7 @@ public class InputParser {
         }
     }
 
-    double operate() {
+    public double operate() {
         return operands.operate(operator);
     }
 }

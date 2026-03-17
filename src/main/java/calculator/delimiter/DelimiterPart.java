@@ -1,17 +1,20 @@
 package calculator.delimiter;
 
 public class DelimiterPart {
-    String value;
+    private final String value;
 
     DelimiterPart(String value) {
         this.value = value;
     }
 
-    boolean hasDelimiterPrefix() {
+    private boolean hasDelimiterPrefix() {
         return this.value.contains("//");
     }
 
-    char getDelimiter() {
-        return this.value.charAt(2);
+    String getDelimiterRegex() {
+        if (!this.hasDelimiterPrefix()) {
+            return "[:,]";
+        }
+        return "[:," + this.value.charAt(2) + "]";
     }
 }

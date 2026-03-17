@@ -1,17 +1,16 @@
 package calculator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class History {
     private final List<String> values;
 
-    History() {
-        this.values = new ArrayList<>();
+    History(List<String> values) {
+        this.values = values;
     }
 
     public void addValue(String value) {
-        if (values.size() == 10) {
+        if (this.values.size() >= 10) {
             values.removeLast();
         }
         values.addFirst(value);

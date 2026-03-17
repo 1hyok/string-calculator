@@ -1,7 +1,7 @@
 package calculator.operation;
 
 public class OperatorPart {
-    String value;
+    private final String value;
 
     OperatorPart(String value) {
         this.value = value;

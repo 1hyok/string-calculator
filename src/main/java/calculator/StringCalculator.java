@@ -1,5 +1,8 @@
 package calculator;
 
+import calculator.input.InputParser;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,12 +11,13 @@ import java.util.List;
  * 각 책임은 별도 클래스에 위임할 것.
  */
 public class StringCalculator {
-    private final History history = new History();
+    private final History history = new History(new ArrayList<>());
+    private final CalculationHistory calculationHistory = new CalculationHistory(history);
 
     public double calculate(String input) {
 //        throw new UnsupportedOperationException("구현 필요");
         System.out.println("\n인풋:" + input);
-        history.addValue(input);
+        calculationHistory.addHistoryLine(input);
         InputParser inputParser = new InputParser(input);
         return inputParser.operate();
     }

@@ -8,10 +8,7 @@ public class DelimiterExtractor {
         this.delimiterPart = new DelimiterPart(delimiterPart);
     }
 
-    public char extract() {
-        if (!this.delimiterPart.hasDelimiterPrefix()) {
-            return ',';
-        }
-        return this.delimiterPart.getDelimiter();
+    public String extract() {
+        return this.delimiterPart.getDelimiterRegex();
     }
 }
