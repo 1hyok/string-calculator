@@ -12,6 +12,7 @@ public class StringCalculator {
 
     public double calculate(String input) {
 //        throw new UnsupportedOperationException("구현 필요");
+        System.out.println("\n인풋:"+input);
         history.addValue(input);
         InputParser inputParser = new InputParser(input);
         return inputParser.operate();

@@ -8,10 +8,10 @@ public class DelimiterPart {
     }
 
     boolean hasDelimiterPrefix() {
-        return this.value.contains("//") && this.value.contains("\n");
+        return this.value.contains("//");
     }
 
-    char symbolAt(int index) {
-        return this.value.charAt(index);
+    char getDelimiter() {
+        return this.value.charAt(2);
     }
 }

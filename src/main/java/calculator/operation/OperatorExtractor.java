@@ -9,6 +9,6 @@ public class OperatorExtractor {
 
     public char extract() {
         if (!this.operatorPart.hasOperatorPrefix()) return '+';
-        return this.operatorPart.symbolAt(3);
+        return this.operatorPart.getOperator();
     }
 }

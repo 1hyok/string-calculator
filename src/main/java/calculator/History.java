@@ -11,6 +11,9 @@ public class History {
     }
 
     public void addValue(String value) {
+        if(values.size()==10){
+            values.removeLast();
+        }
         values.addFirst(value);
     }
 

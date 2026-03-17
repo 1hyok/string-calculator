@@ -20,7 +20,13 @@ public class InputParser {
     private final Operator operator;
 
     InputParser(String input) {
+        if (input == null || input.isEmpty()) {
+            operands = new Operands(new ArrayList<>(List.of(0.0)));
+            operator = new Operator(OperationType.from('+'));
+            return;
+        }
         List<String> inputTokenList = getInputTokenList(input);
+        System.out.println("인풋을 둘로 나눔:" + inputTokenList);
         this.setOperandList(inputTokenList);
         String inputTokenFirst = inputTokenList.getFirst();
         char extractedOperator = new OperatorExtractor(inputTokenFirst).extract();
@@ -32,27 +38,46 @@ public class InputParser {
         String inputTokenFirst = inputTokenList.getFirst();
         String inputTokenLast = inputTokenList.getLast();
         char delimiter = new DelimiterExtractor(inputTokenFirst).extract();
-        String token = String.valueOf(delimiter);
-        String[] operandPartTokens = inputTokenLast.split(token);
-        List<Double> list = Arrays.stream(operandPartTokens)
-                .map(Double::parseDouble)
-                .toList();
-        this.operands = new Operands(list);
+        System.out.println("디리미터:" + delimiter);
+        String delimiterRegex = "[:," + delimiter + "]";
+        String[] operandPartTokens = inputTokenLast.split(delimiterRegex);
+        System.out.println("숫자 분리:" + Arrays.toString(operandPartTokens));
+
+        try {
+            List<Double> list = Arrays.stream(operandPartTokens)
+                    .map(Double::parseDouble)
+                    .peek(operand -> {
+                        if (operand < 0) {
+                            throw new IllegalArgumentException("음수는 입력할 수 없습니다");
+                        }
+                    })
+                    .toList();
+            this.operands = new Operands(list);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자가 아닌 값이 포함되어 있습니다");
+        }
     }
 
     private ArrayList<String> getInputTokenList(String input) {
         String inputToken = getInputToken(input);
+        System.out.println("인풋 토큰:" + inputToken);
+        if (inputToken.isEmpty()) {
+            return new ArrayList<>(List.of("", input));
+        }
         String[] inputTokenArray = input.split(inputToken);
         return new ArrayList<>(Arrays.asList(inputTokenArray));
     }
 
     private String getInputToken(String input) {
-        if (input.contains("op=") && input.contains("\\|")) {
+        if (input.contains("op=") && input.contains("|")) {
+            System.out.println("커스텀 연산자 받음");
             return "\\|";
         }
         if (input.contains("//") && input.contains("\n")) {
+            System.out.println("커스텀 구분자 받음");
             return "\n";
         }
+        System.out.println("커스텀 아무 것도 안 받음");
         return "";
     }
 
