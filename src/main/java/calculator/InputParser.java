@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * 반드시 이 클래스를 사용할 필요는 없다. 자유롭게 설계할 것.
  */
 public class InputParser {
-    private List<Integer> operandList = new ArrayList<>(List.of(0));
+    private Operands operands;
     private char operator = '+';
 
 
@@ -28,9 +28,10 @@ public class InputParser {
         char delimiter = new DelimiterExtractor(inputTokenFirst).extract();
         String token = String.valueOf(delimiter);
         String[] operandPartTokens = inputTokenLast.split(token);
-        this.operandList = Arrays.stream(operandPartTokens)
+        List<Integer> list = Arrays.stream(operandPartTokens)
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .toList();
+        operands = new Operands(list);
     }
 
     private ArrayList<String> getInputTokenList(String input) {
