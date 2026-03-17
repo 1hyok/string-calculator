@@ -2,6 +2,8 @@ package calculator.operation;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
+import java.util.function.DoubleBinaryOperator;
 
 /**
  * 힌트: 연산자 종류를 나타내는 enum.
@@ -41,19 +43,17 @@ public enum OperationType {
     };
 
     private final char symbol;
+    private DoubleBinaryOperator operation;
 
     OperationType(char symbol) {
         this.symbol = symbol;
     }
 
     public static OperationType from(char symbol) {
-        for (OperationType value : values()) {
-            if (value.symbol == symbol) {
-                return value;
-            }
-        }
-        throw new IllegalArgumentException("지원하지 않는 연산자입니다:");
+        return Arrays.stream(values())
+                .filter(s -> s.symbol == symbol)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("지원하지 않는 연산자입니다:"));
     }
-
     public abstract double operate(double operand1, double operand2);
 }

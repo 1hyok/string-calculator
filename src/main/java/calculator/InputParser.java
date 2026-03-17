@@ -25,7 +25,8 @@ public class InputParser {
             operator = new Operator(OperationType.from('+'));
             return;
         }
-        List<String> inputTokenList = getInputTokenList(input);
+        InputTokenizer inputTokenizer = new InputTokenizer(input);
+        List<String> inputTokenList = inputTokenizer.getInputTokenList();
         System.out.println("인풋을 둘로 나눔:" + inputTokenList);
         this.setOperandList(inputTokenList);
         String inputTokenFirst = inputTokenList.getFirst();
@@ -56,29 +57,6 @@ public class InputParser {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("숫자가 아닌 값이 포함되어 있습니다");
         }
-    }
-
-    private ArrayList<String> getInputTokenList(String input) {
-        String inputToken = getInputToken(input);
-        System.out.println("인풋 토큰:" + inputToken);
-        if (inputToken.isEmpty()) {
-            return new ArrayList<>(List.of("", input));
-        }
-        String[] inputTokenArray = input.split(inputToken);
-        return new ArrayList<>(Arrays.asList(inputTokenArray));
-    }
-
-    private String getInputToken(String input) {
-        if (input.contains("op=") && input.contains("|")) {
-            System.out.println("커스텀 연산자 받음");
-            return "\\|";
-        }
-        if (input.contains("//") && input.contains("\n")) {
-            System.out.println("커스텀 구분자 받음");
-            return "\n";
-        }
-        System.out.println("커스텀 아무 것도 안 받음");
-        return "";
     }
 
     double operate() {

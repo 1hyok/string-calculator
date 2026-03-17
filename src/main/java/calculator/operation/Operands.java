@@ -10,16 +10,8 @@ public class Operands {
     }
 
     public double operate(Operator operator) {
-        double result = 0;
-        boolean first = true;
-        for (double value : this.values) {
-            if (first) {
-                result = value;
-                first = false;
-                continue;
-            }
-            result = operator.operate(result, value);
-        }
-        return result;
+        return values.stream()
+                .reduce(operator::operate)
+                .orElse(0.0);
     }
 }
