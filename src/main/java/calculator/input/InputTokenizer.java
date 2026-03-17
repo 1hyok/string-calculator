@@ -11,7 +11,7 @@ public class InputTokenizer {
         this.input = input;
     }
 
-    private String getInputToken() {
+    private String getToken() {
         if (this.input.contains("op=") && this.input.contains("|")) {
             System.out.println("커스텀 연산자 받음");
             return "\\|";
@@ -24,8 +24,8 @@ public class InputTokenizer {
         return "";
     }
 
-    ArrayList<String> getInputTokenList() {
-        String inputToken = this.getInputToken();
+    ArrayList<String> getTokenList() {
+        String inputToken = this.getToken();
         System.out.println("인풋 토큰:" + inputToken);
         if (inputToken.isEmpty()) {
             return new ArrayList<>(List.of("", this.input));
@@ -33,5 +33,4 @@ public class InputTokenizer {
         String[] inputTokenArray = this.input.split(inputToken);
         return new ArrayList<>(Arrays.asList(inputTokenArray));
     }
-
 }
