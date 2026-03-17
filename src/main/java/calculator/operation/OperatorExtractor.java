@@ -1,13 +1,13 @@
-package calculator.inputparser;
+package calculator.operation;
 
 public class OperatorExtractor {
     private final OperatorPart operatorPart;
 
-    OperatorExtractor(String operatorPart) {
+    public OperatorExtractor(String operatorPart) {
         this.operatorPart = new OperatorPart(operatorPart);
     }
 
-    char extract() {
+    public char extract() {
         if (!this.operatorPart.hasOperatorPrefix()) return '+';
         return this.operatorPart.symbolAt(3);
     }

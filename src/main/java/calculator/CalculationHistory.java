@@ -6,4 +6,13 @@ package calculator;
  * 반드시 이 클래스를 사용할 필요는 없다. 자유롭게 설계할 것.
  */
 public class CalculationHistory {
+    private final History history;
+
+    CalculationHistory(History history) {
+        this.history = history;
+    }
+
+    public void addHistoryLine(String historyLine) {
+        history.addValue(historyLine);
+    }
 }

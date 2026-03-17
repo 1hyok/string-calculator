@@ -1,4 +1,4 @@
-package calculator.inputparser;
+package calculator.operation;
 
 public class OperatorPart {
     String value;

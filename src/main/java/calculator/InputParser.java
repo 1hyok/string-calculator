@@ -1,4 +1,10 @@
-package calculator.inputparser;
+package calculator;
+
+import calculator.delimiter.DelimiterExtractor;
+import calculator.operation.Operands;
+import calculator.operation.OperationType;
+import calculator.operation.Operator;
+import calculator.operation.OperatorExtractor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,14 +17,15 @@ import java.util.List;
  */
 public class InputParser {
     private Operands operands;
-    private Operator operator;
+    private final Operator operator;
 
     InputParser(String input) {
         List<String> inputTokenList = getInputTokenList(input);
         this.setOperandList(inputTokenList);
         String inputTokenFirst = inputTokenList.getFirst();
         char extractedOperator = new OperatorExtractor(inputTokenFirst).extract();
-        this.operator = new Operator(extractedOperator);
+        OperationType operationType = OperationType.from(extractedOperator);
+        this.operator = new Operator(operationType);
     }
 
     private void setOperandList(List<String> inputTokenList) {
@@ -27,8 +34,8 @@ public class InputParser {
         char delimiter = new DelimiterExtractor(inputTokenFirst).extract();
         String token = String.valueOf(delimiter);
         String[] operandPartTokens = inputTokenLast.split(token);
-        List<Integer> list = Arrays.stream(operandPartTokens)
-                .map(Integer::parseInt)
+        List<Double> list = Arrays.stream(operandPartTokens)
+                .map(Double::parseDouble)
                 .toList();
         this.operands = new Operands(list);
     }
@@ -47,5 +54,9 @@ public class InputParser {
             return "\n";
         }
         return "";
+    }
+
+    double operate() {
+        return operands.operate(operator);
     }
 }
